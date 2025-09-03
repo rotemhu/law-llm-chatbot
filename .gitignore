@@ -1,4 +1,12 @@
+
 **/__pycache__/
-.env
+
+#Virtual environments
 poc/backend/venv/
 poc/frontend/node_modules/
+
+#Env files
+.env
+
+#Jupyter notebooks
+*.ipynb
