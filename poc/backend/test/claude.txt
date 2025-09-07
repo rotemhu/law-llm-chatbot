@@ -1,0 +1,49 @@
+Test Coverage Summary
+
+  test_fetchers.py (10,397 bytes):
+  - Tests WikiFetcher.fetch_one() and fetch_all() methods
+  - Covers success cases, error handling, network failures,
+  parsing errors
+  - Mocks HTTP requests and BeautifulSoup parsing
+  - Tests retry mechanisms and timeout handling
+
+  test_parsers.py (12,796 bytes):
+  - Tests get_line_type() and get_section_properties()
+  utility functions
+  - Tests WikiSectionParser.parse() and parse_many() methods
+  - Covers Hebrew legal document structure parsing
+  - Tests hierarchical elements (parts, chapters, signs,
+  sections)
+  - Validates metadata extraction and error handling
+
+  test_storers.py (17,679 bytes):
+  - Tests PineconeStorer initialization and configuration
+  - Tests vector storage operations with embedding generation
+  - Covers batch processing and error scenarios
+  - Tests PostgreSqlStorer basic functionality
+  - Mocks Pinecone API calls and embedding models
+
+  test_model_connectors.py (16,502 bytes):
+  - Tests all embedding adapter classes
+  (GoogleEmbeddingAdapter, HuggingFaceEmbeddingAdapter,
+  LocalEmbeddingAdapter)
+  - Tests EmbeddingAdapterFactory for creating adapters
+  - Covers API key handling, model loading, and embedding
+  generation
+  - Tests configuration management and error scenarios
+
+  Key Features
+
+  - Comprehensive Coverage: All public methods and error
+  conditions tested
+  - Extensive Mocking: No external API calls or dependencies
+  required
+  - Hebrew Content Support: Tests include Hebrew legal text
+  examples
+  - Error Handling: Tests cover all custom exception types
+  - Multiple Run Options: Can run via pytest, unittest, or
+  custom runner
+  - Documentation: README with usage instructions
+
+  The tests are ready to run and will help ensure code
+  quality and reliability as the project develops.
