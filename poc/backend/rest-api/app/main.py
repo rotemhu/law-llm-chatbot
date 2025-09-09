@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from contextlib import asynccontextmanager
 import time
 import uuid
+import json
 import logging
 from typing import Dict, Any
 import traceback
@@ -210,6 +211,24 @@ async def ask_legal_question(
     except Exception as e:
         logger.error(f"Unexpected error processing question for chat_id {chat_id}: {str(e)}\n{traceback.format_exc()}")
         raise LLMServiceError(f"Unexpected error occurred: {str(e)}")
+#TODO: improve, add logging, handle errors, test
+@app.get("/api/v1/chat_stream")
+async def chat(question: str):
+    async def event_stream():
+        index = 0
+        async for token in LLMPipeline().prompt(question):
+            data = {
+                "token": token,
+                "index": index,
+                "timestamp": time.time()
+            }
+            yield f"event: answer\ndata: {json.dumps(data)}\n\n"
+            index += 1
+        # Signal end of stream
+        yield "event: end\ndata: end\n\n"
+
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
 @app.get("/api/v1/status")
 async def get_status():
     """Get API status and configuration"""
